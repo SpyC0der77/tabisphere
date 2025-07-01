@@ -26,6 +26,7 @@ import {
   FolderOpen,
   ListIcon,
   PencilIcon,
+  Copy,
   Plus,
   SearchIcon,
   Share,
@@ -965,6 +966,22 @@ function App() {
                           >
                             <FolderOpen className="size-4" />
                             Move to folder
+                          </ContextMenuItem>
+                          <ContextMenuItem
+                            onSelect={async () => {
+                              try {
+                                await navigator.clipboard.writeText(bookmark.url!);
+                                toast("Link copied to clipboard");
+                              } catch (error) {
+                                toast("Failed to copy link", {
+                                  description: "Unable to access clipboard",
+                                });
+                                console.log(error);
+                              }
+                            }}
+                          >
+                            <Copy className="size-4" />
+                            Copy link
                           </ContextMenuItem>
                           <ContextMenuItem
                             onSelect={async () => {
